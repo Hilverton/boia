@@ -5,10 +5,8 @@ import {
   Sparkles,
   Sliders,
   ChevronDown,
-  Image as ImageIcon,
   Check,
   Zap,
-  Layers,
   Ratio,
   X,
 } from "lucide-react";
@@ -41,6 +39,7 @@ export function PromptComposer({
   aspectRatio,
   setAspectRatio,
 }: PromptComposerProps) {
+  const [mounted, setMounted] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [negativePrompt, setNegativePrompt] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -48,6 +47,10 @@ export function PromptComposer({
   const [showAspectMenu, setShowAspectMenu] = useState(false);
   const [referenceImage, setReferenceImage] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -71,9 +74,24 @@ export function PromptComposer({
     }
   };
 
+  if (!mounted) {
+    return null;
+  }
+
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 w-full max-w-3xl px-4">
-      <div className="relative rounded-2xl composer-glass p-3 shadow-2xl transition-all">
+    <div
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 w-full max-w-3xl px-4"
+      suppressHydrationWarning
+      data-dashlane-ignore="true"
+      data-form-type="other"
+      data-lpignore="true"
+      data-1p-ignore="true"
+    >
+      <div
+        className="relative rounded-2xl composer-glass p-3 shadow-2xl transition-all"
+        suppressHydrationWarning
+        data-dashlane-ignore="true"
+      >
         {/* Reference image preview if attached */}
         {referenceImage && (
           <div className="mb-2 flex items-center gap-2 rounded-lg bg-[#060A16] p-2 border border-[#1B2540]">
@@ -84,8 +102,11 @@ export function PromptComposer({
             />
             <span className="text-xs text-[#97A1BC]">Imagem de referência anexada</span>
             <button
+              type="button"
               onClick={() => setReferenceImage(null)}
               className="ml-auto text-[#97A1BC] hover:text-white p-1"
+              suppressHydrationWarning
+              data-dashlane-ignore="true"
             >
               <X size={14} />
             </button>
@@ -101,6 +122,12 @@ export function PromptComposer({
             onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Descreva a imagem que deseja gerar..."
+            autoComplete="off"
+            spellCheck={false}
+            suppressHydrationWarning
+            data-dashlane-ignore="true"
+            data-form-type="other"
+            data-lpignore="true"
             className="w-full resize-none bg-transparent px-3 py-1.5 text-sm text-[#EDF1FA] placeholder-[#66708E] focus:outline-none min-h-[44px] max-h-[180px] leading-relaxed"
           />
         </div>
@@ -116,6 +143,11 @@ export function PromptComposer({
               value={negativePrompt}
               onChange={(e) => setNegativePrompt(e.target.value)}
               placeholder="Ex: blurry, bad anatomy, deformed, watermark, low quality"
+              autoComplete="off"
+              spellCheck={false}
+              suppressHydrationWarning
+              data-dashlane-ignore="true"
+              data-form-type="other"
               className="w-full h-8 px-2.5 rounded-lg border border-[#283456] bg-[#060A16] text-xs text-white placeholder-[#66708E] focus:outline-none focus:border-[#FF5500]"
             />
           </div>
@@ -132,7 +164,9 @@ export function PromptComposer({
                   setShowModelMenu(!showModelMenu);
                   setShowAspectMenu(false);
                 }}
-                className="flex items-center gap-1.5 h-8 px-3 rounded-xl border border-[#283456] bg-[#16203A]/70 text-xs font-medium text-[#EDF1FA] hover:bg-[#1E2A48] hover:border-[#FF5500]/50 transition-all"
+                suppressHydrationWarning
+                data-dashlane-ignore="true"
+                className="flex items-center gap-1.5 h-8 px-3 rounded-xl border border-[#283456] bg-[#16203A]/70 text-xs font-medium text-[#EDF1FA] hover:bg-[#1E2A48] hover:border-[#FF5500]/50 transition-all cursor-pointer"
               >
                 <Zap size={13} className="text-[#FF5500]" />
                 <span>{selectedModel.name}</span>
@@ -151,12 +185,15 @@ export function PromptComposer({
                   {AVAILABLE_MODELS.map((m) => (
                     <button
                       key={m.id}
+                      type="button"
                       onClick={() => {
                         setSelectedModel(m);
                         setShowModelMenu(false);
                       }}
+                      suppressHydrationWarning
+                      data-dashlane-ignore="true"
                       className={cn(
-                        "w-full flex flex-col items-start px-2.5 py-2 rounded-lg text-left transition-colors",
+                        "w-full flex flex-col items-start px-2.5 py-2 rounded-lg text-left transition-colors cursor-pointer",
                         selectedModel.id === m.id
                           ? "bg-[#FF5500]/15 text-white border border-[#FF5500]/30"
                           : "hover:bg-[#16203A] text-[#EDF1FA]"
@@ -185,7 +222,9 @@ export function PromptComposer({
                   setShowAspectMenu(!showAspectMenu);
                   setShowModelMenu(false);
                 }}
-                className="flex items-center gap-1.5 h-8 px-3 rounded-xl border border-[#283456] bg-[#16203A]/70 text-xs font-medium text-[#EDF1FA] hover:bg-[#1E2A48] hover:border-[#FF5500]/50 transition-all"
+                suppressHydrationWarning
+                data-dashlane-ignore="true"
+                className="flex items-center gap-1.5 h-8 px-3 rounded-xl border border-[#283456] bg-[#16203A]/70 text-xs font-medium text-[#EDF1FA] hover:bg-[#1E2A48] hover:border-[#FF5500]/50 transition-all cursor-pointer"
               >
                 <Ratio size={13} className="text-[#97A1BC]" />
                 <span>{aspectRatio}</span>
@@ -198,12 +237,15 @@ export function PromptComposer({
                   {ASPECT_RATIOS.map((ar) => (
                     <button
                       key={ar.value}
+                      type="button"
                       onClick={() => {
                         setAspectRatio(ar.value);
                         setShowAspectMenu(false);
                       }}
+                      suppressHydrationWarning
+                      data-dashlane-ignore="true"
                       className={cn(
-                        "w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors",
+                        "w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer",
                         aspectRatio === ar.value
                           ? "bg-[#FF5500]/15 text-white"
                           : "hover:bg-[#16203A] text-[#EDF1FA]"
@@ -221,8 +263,10 @@ export function PromptComposer({
             <button
               type="button"
               onClick={() => setShowAdvanced(!showAdvanced)}
+              suppressHydrationWarning
+              data-dashlane-ignore="true"
               className={cn(
-                "flex items-center justify-center h-8 w-8 rounded-xl border border-[#283456] text-[#97A1BC] hover:bg-[#16203A] hover:text-white transition-colors",
+                "flex items-center justify-center h-8 w-8 rounded-xl border border-[#283456] text-[#97A1BC] hover:bg-[#16203A] hover:text-white transition-colors cursor-pointer",
                 showAdvanced && "bg-[#16203A] text-[#FF5500] border-[#FF5500]/40"
               )}
               title="Configurações avançadas"
@@ -236,6 +280,8 @@ export function PromptComposer({
             type="button"
             onClick={() => handleSubmit()}
             disabled={!prompt.trim() || isGenerating}
+            suppressHydrationWarning
+            data-dashlane-ignore="true"
             className={cn(
               "flex items-center gap-2 h-9 px-4 rounded-xl font-bold text-xs uppercase tracking-wider fire-button disabled:opacity-40 disabled:pointer-events-none select-none cursor-pointer"
             )}

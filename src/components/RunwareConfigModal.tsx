@@ -69,6 +69,11 @@ export function RunwareConfigModal({
               value={tempKey}
               onChange={(e) => setTempKey(e.target.value)}
               placeholder="Ex: rw_live_..."
+              autoComplete="off"
+              spellCheck={false}
+              suppressHydrationWarning
+              data-dashlane-ignore="true"
+              data-form-type="other"
               className="w-full h-11 px-3.5 rounded-xl border border-[#283456] bg-[#16203A] text-sm text-white placeholder-[#66708E] focus:outline-none focus:border-[#FF5500] focus:ring-1 focus:ring-[#FF5500] transition-all font-mono"
             />
           </div>
