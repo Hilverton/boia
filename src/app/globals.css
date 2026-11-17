@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --bg: #060A16;
+  --bg2: #0A1022;
+  --panel: #0F172C;
+  --panel2: #16203A;
+  --panel3: #1E2A48;
+  --line: #1B2540;
+  --line2: #283456;
+  --text: #EDF1FA;
+  --muted: #97A1BC;
+  --dim: #66708E;
+  
+  --accent: #FF5500;
+  --accent2: #FF6A14;
+  --accent-ink: #FFFFFF;
+  --accent-soft: rgba(255, 85, 0, 0.16);
+  --accent-rgb: 255, 85, 0;
+  --accent-hot: #EC3A22;
+  --accent-ember: #B32C1A;
+  --accent-amber: #FFB01F;
+  
+  --cream: #F2EDE4;
+  --glow: #5B8CFF;
+  --glow-soft: rgba(91, 140, 255, 0.12);
+  --ok: #4FD49B;
+  --bad: #FF5C6C;
+  --bad-soft: rgba(255, 92, 108, 0.16);
+  --warn: #F5BA4F;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --bx-card: #111A31;
+  --bx-card-line: #222E4E;
+  --bx-hover: #1C2846;
+  --bx-field: #18233D;
+  --bx-field-line: #2A385E;
+  --bx-text: #E3E8F4;
+  --bx-sub: #8590AE;
+  --bx-icon: #B5BFD6;
+  --bx-shadow: rgba(0, 3, 12, 0.6);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --fire-simple: radial-gradient(44% 64% at 50% 116%, rgba(255, 214, 64, 1) 0%, rgba(255, 178, 28, 0.8) 32%, rgba(255, 128, 0, 0) 100%), linear-gradient(180deg, #FF6812 0%, #FF5500 46%, #F64B00 100%);
+  --fire-glow: radial-gradient(44% 92% at 50% 52%, rgba(232, 46, 40, 0.88) 0%, rgba(238, 62, 32, 0.6) 40%, rgba(255, 85, 0, 0) 100%), radial-gradient(30% 110% at 100% 50%, rgba(255, 150, 22, 0.5) 0%, rgba(255, 150, 22, 0) 100%), linear-gradient(180deg, #FF7A2C 0%, #FF5C08 50%, #F44D0A 100%);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  background-image: radial-gradient(1100px 520px at 72% -14%, rgba(91, 140, 255, 0.085), transparent 62%);
+  color: var(--text);
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar for dark studio */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line2);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dim);
+}
+
+.fire-button {
+  background: var(--fire-simple);
+  color: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(255, 85, 0, 0.35);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fire-button:hover {
+  background: var(--fire-glow);
+  box-shadow: 0 6px 24px rgba(255, 85, 0, 0.55), 0 0 12px rgba(255, 110, 20, 0.4);
+  transform: translateY(-1px);
+}
+.fire-button:active {
+  transform: translateY(0);
+}
+
+.composer-glass {
+  background: rgba(13, 20, 40, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line2);
+  box-shadow: 0 20px 60px rgba(0, 4, 14, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.card-dark {
+  background: var(--bx-card);
+  border: 1px solid var(--bx-card-line);
+  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.2s ease;
+}
+.card-dark:hover {
+  border-color: var(--line2);
+  background: var(--bx-hover);
 }
