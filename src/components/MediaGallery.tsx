@@ -80,6 +80,21 @@ export function MediaGallery({
         </div>
       </div>
 
+      {/* Empty State */}
+      {filteredItems.length === 0 && (
+        <div className="py-20 text-center rounded-2xl border border-dashed border-[#1B2540] bg-[#0A1022]/40 p-8 my-6">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[#16203A] text-[#97A1BC] mb-3">
+            <Sparkles size={22} className="text-[#FF5500]" />
+          </div>
+          <h3 className="text-sm font-bold text-[#F2EDE4]">Nenhuma geração encontrada</h3>
+          <p className="text-xs text-[#97A1BC] mt-1 max-w-sm mx-auto">
+            {filter === "favorites"
+              ? "Você ainda não favoritou nenhuma geração. Clique na estrela de qualquer imagem para salvá-la aqui."
+              : "Nenhuma geração encontrada neste filtro ou projeto. Digite um prompt no Estúdio para gerar."}
+          </p>
+        </div>
+      )}
+
       {/* Masonry / Responsive Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredItems.map((item) => (
